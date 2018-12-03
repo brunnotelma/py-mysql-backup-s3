@@ -1,0 +1,13 @@
+[[source]]
+name = "py-mysql-backup-s3"
+url = "https://github.com/brunnotelma/py-mysql-backup-s3"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+boto3 = "*"
+python-dotenv = "*"
+
+[requires]
+python_version = "3.7"
