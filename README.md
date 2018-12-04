@@ -5,6 +5,7 @@ Este script realiza o dump de um banco de dados MySQL e envia o arquivo zipado p
 ## Requerimentos
 
 - Python 3
+- MySQL Dump
 
 ## Desenvolvimento
 
