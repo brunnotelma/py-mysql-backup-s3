@@ -66,20 +66,20 @@ for db in DB_NAMES:
     os.system('tar -czvf ' + COMPRESSED_FILE_NAME + ' -C ' +
               pipes.quote(BACKUP_PATH) + ' ' + FILE_NAME)
 
-    # try:
-    # Le os dados do arquivo
-    file_data = os.open(COMPRESSED_FILE_NAME, 'rb')
+    try:
+        # Le os dados do arquivo
+        file_data = open(COMPRESSED_FILE_NAME, 'rb')
 
-    # Se o AWS S3 estiver configurado
-    # corretamente, faz o upload do arquivo
-    if s3_enabled:
-        print('Enviando o arquivo %s para o AWS S3...' % FILE_NAME)
-        # Faz o upload do arquivo para o Bucket configurado
-        result = s3.Bucket(AWS_BUCKET_NAME).put_object(
-            Key=COMPRESSED_FILE_NAME, Body=file_data)
-        print(result)
+        # Se o AWS S3 estiver configurado
+        # corretamente, faz o upload do arquivo
+        if s3_enabled:
+            print('Enviando o arquivo %s para o AWS S3...' % FILE_NAME)
+            # Faz o upload do arquivo para o Bucket configurado
+            result = s3.Bucket(AWS_BUCKET_NAME).put_object(
+                Key=COMPRESSED_FILE_NAME, Body=file_data)
+            print(result)
 
-    # Fecha o buffer do arquivo
-    file_data.close()
-    # except:
-    #     print('Falha ao criar arquivo de backup (%s).' % db)
+        # Fecha o buffer do arquivo
+        file_data.close()
+    except:
+        print('Falha ao criar arquivo de backup (%s).' % db)
