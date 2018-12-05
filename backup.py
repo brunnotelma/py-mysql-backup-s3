@@ -48,10 +48,12 @@ except:
 for db in DB_NAMES:
     # Nome do arquivo de backup .sql
     FILE_NAME = db + '_' + time.strftime('%Y%m%d-%H%M%S') + '.sql'
-    # Nome do arquivo comprimido
-    COMPRESSED_FILE_NAME = FILE_NAME + '.tar.gz'
     # Caminho totalmente qualificado do arquivo de destino
     FILE_PATH = BACKUP_PATH + '/' + FILE_NAME
+    # Nome do arquivo comprimido
+    COMPRESSED_FILE_NAME = FILE_NAME + '.tar.gz'
+    # Caminho totalmente qualificado do arquivo comprimido
+    COMPRESSED_FILE_PATH = BACKUP_PATH + '/' + COMPRESSED_FILE_NAME
     # Tabelas que serao ignoradas
     IGNORED_TABLES = ''
 
@@ -64,12 +66,15 @@ for db in DB_NAMES:
               DB_PASSWORD + ' ' + db + IGNORED_TABLES + ' > ' + FILE_PATH)
 
     # Compacta o arquivo
-    os.system('tar -czvf ' + (BACKUP_PATH + '/' + COMPRESSED_FILE_NAME) +
+    os.system('tar -czvf ' + COMPRESSED_FILE_PATH +
               ' -C ' + BACKUP_PATH + ' ' + FILE_NAME)
 
     try:
         # Le os dados do arquivo
-        file_data = open(COMPRESSED_FILE_NAME, 'rb')
+        file_data = open(COMPRESSED_FILE_PATH, 'rb')
+
+        # Remove o arquivo .sql
+        os.remove(FILE_PATH)
 
         # Se o AWS S3 estiver configurado
         # corretamente, faz o upload do arquivo
