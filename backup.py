@@ -17,7 +17,8 @@ DB_NAMES = os.getenv('DB_NAMES').split(',')
 # Tabelas que serao ignoradas
 DB_IGNORE_TABLES = os.getenv('DB_IGNORE_TABLES').split(',')
 # Uma pasta com ano e mes eh criada na pasta de backup
-BACKUP_PATH = os.getenv('BACKUP_PATH') + '/' + time.strftime('%Y%m')
+BACKUP_PATH = pipes.quote(os.getenv('BACKUP_PATH') +
+                          '/' + time.strftime('%Y%m'))
 # Nome do Vault a ser utilizado
 AWS_BUCKET_NAME = os.getenv('AWS_BUCKET_NAME')
 
@@ -50,7 +51,7 @@ for db in DB_NAMES:
     # Nome do arquivo comprimido
     COMPRESSED_FILE_NAME = FILE_NAME + '.tar.gz'
     # Caminho totalmente qualificado do arquivo de destino
-    FILE_PATH = pipes.quote(BACKUP_PATH) + '/' + FILE_NAME
+    FILE_PATH = BACKUP_PATH + '/' + FILE_NAME
     # Tabelas que serao ignoradas
     IGNORED_TABLES = ''
 
@@ -63,8 +64,8 @@ for db in DB_NAMES:
               DB_PASSWORD + ' ' + db + IGNORED_TABLES + ' > ' + FILE_PATH)
 
     # Compacta o arquivo
-    os.system('tar -czvf ' + COMPRESSED_FILE_NAME + ' -C ' +
-              pipes.quote(BACKUP_PATH) + ' ' + FILE_NAME)
+    os.system('tar -czvf ' + (BACKUP_PATH + '/' + COMPRESSED_FILE_NAME) +
+              ' -C ' + BACKUP_PATH + ' ' + FILE_NAME)
 
     try:
         # Le os dados do arquivo
