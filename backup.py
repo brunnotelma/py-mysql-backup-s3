@@ -63,7 +63,8 @@ for db in DB_NAMES:
               DB_PASSWORD + ' ' + db + IGNORED_TABLES + ' > ' + FILE_PATH)
 
     # Compacta o arquivo
-    os.system('tar -czvf ' + COMPRESSED_FILE_NAME + ' ' + FILE_PATH)
+    os.system('tar -czvf ' + COMPRESSED_FILE_NAME + ' -C ' +
+              pipes.quote(BACKUP_PATH) + ' ' + FILE_NAME)
 
     try:
         # Le os dados do arquivo

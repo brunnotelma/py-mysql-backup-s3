@@ -4,12 +4,14 @@ Este script realiza o dump de um banco de dados MySQL e envia o arquivo zipado p
 
 ## Requerimentos
 
-- Python 3
+- Python 3.5
 - MySQL Dump
 
 ## Desenvolvimento
 
-**IMPORTANTE:** É necessário ter o Python 3.7 instalado. Para instalar no macOS use: `brew install python3`.
+**IMPORTANTE:** É necessário ter o Python 3.5 instalado. 
+Para instalar no macOS use: `brew install python3`.
+Para instalar no Linux Ubuntu use: `sudo apt-get install python3.5`
 
 - Instale o gerenciador de dependencias `pipenv`
 
@@ -21,6 +23,12 @@ pip install pipenv
 
 ```sh
 pipenv install
+```
+
+- Instale o `mysqldump`
+
+```sh
+sudo apt-get install mysql-client
 ```
 
 [virtual-env]: https://docs.python-guide.org/dev/virtualenvs/
